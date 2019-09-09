@@ -8,9 +8,9 @@ public class HiveMain {
     public static void main(String[] args) throws IOException, ClassNotFoundException, SQLException {
         System.out.println("Usage: keyUser,keyPath,jdbcUrl,sql");
 
-        String user = "dw";
-        String path = "/etc/security/keytabs/dw.keytab";
-        String url = "jdbc:hive2://plat.main.ambari.bjb.003.hadoop:10000/default;principal=hive/plat.main.ambari.bjb.003.hadoop@LG.COM";
+        String user = "bigdata";
+        String path = "/Users/pipe/Documents/kerberos/test/bigdata.keytab";
+        String url = "jdbc:hive2://bigdata.t01.58btc.com:2181,bigdata.t03.58btc.com:2181,bigdata.t02.58btc.com:2181/;serviceDiscoveryMode=zooKeeper;zooKeeperNamespace=hiveserver2";
         String sql = "show databases";
 
         if (args.length >= 4) {
@@ -21,7 +21,7 @@ public class HiveMain {
         }
 
         Configuration configuration = new Configuration();
-        configuration.set("hadoop.security.authentication", "Kerberos");
+        configuration.set("hadoop.security.authentication", "kerberos");
 
         UserGroupInformation.setConfiguration(configuration);
         UserGroupInformation.loginUserFromKeytab(user, path);

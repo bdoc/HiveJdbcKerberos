@@ -7,10 +7,12 @@ import java.sql.*;
 public class HiveMain {
     public static void main(String[] args) throws IOException, ClassNotFoundException, SQLException {
         System.out.println("Usage: keyUser,keyPath,jdbcUrl,sql");
+        System.setProperty("java.security.krb5.realm", "REALM.COM");
+        System.setProperty("java.security.krb5.kdc", "kdc-host");
 
-        String user = "bigdata";
-        String path = "/Users/pipe/Documents/kerberos/test/bigdata.keytab";
-        String url = "jdbc:hive2://bigdata.t01.58btc.com:2181,bigdata.t03.58btc.com:2181,bigdata.t02.58btc.com:2181/;serviceDiscoveryMode=zooKeeper;zooKeeperNamespace=hiveserver2";
+        String user = "user";
+        String path = "/Users/pipe/Downloads/user.keytab";
+        String url = "jdbc:hive2://hs2-host:10025/default;principal=hive/hs2-host@REALM.COM";
         String sql = "show databases";
 
         if (args.length >= 4) {

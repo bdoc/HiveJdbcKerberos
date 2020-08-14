@@ -6,21 +6,17 @@ import java.sql.*;
 
 public class HiveMain {
     public static void main(String[] args) throws IOException, ClassNotFoundException, SQLException {
-        System.out.println("Usage: keyUser,keyPath,jdbcUrl,sql");
-        // without krb5.conf
-        System.setProperty("java.security.krb5.realm", "REALM.COM");
-        System.setProperty("java.security.krb5.kdc", "kdc-host");
-
-        String user = "user";
-        String path = "user.keytab";
-        String url = "jdbc:hive2://hs2-host:port/default;principal=hive/hs2-host@REALM.COM";
-        String sql = "show databases";
+        String user, path, url, sql;
 
         if (args.length >= 4) {
             user = args[0];
             path = args[1];
             url = args[2];
             sql = args[3];
+        } else {
+            System.out.println("args >= 4");
+            System.out.println("Usage: keyUser,keyPath,jdbcUrl,sql");
+            return;
         }
 
         Configuration configuration = new Configuration();
